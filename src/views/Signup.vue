@@ -56,7 +56,7 @@
             formData.append("username", username.value)
     
          try {
-            const res = await fetch("https://bitbet-backend.onrender.com/signup.php", {
+            const res = await fetch("https://bitbet-backend.onrender.com/backend/auth/signup.php", {
         method: "POST",
         body: formData
          });
