@@ -26,7 +26,10 @@
                     <small id="lamb" class="px-4 font-semibold text-bitRed"></small>
                 </div>
                 <div class="btndiv w-full mt-5">
-                    <button type="submit" class="bg-bitGold font-bold rounded-full px-3 py-2 w-full">Sign Up!</button>
+                    <button type="submit" class="bg-bitGold font-bold rounded-full px-3 py-2 w-full">
+                     <span v-if="isLoading">Signing in...</span>
+                      <span v-else>Sign Up!</span>
+                    </button>
                 </div>
                 <div class="checkboxdiv text-start flex items-center my-3 px-4">
                    <span class="font-semibold">Show Password</span> <input type="checkbox" class="ms-2 w-4 h-4" @click="showPass()">
@@ -46,10 +49,12 @@
     const email = ref('');
     const password = ref('');
     const conPass = ref('');
+    const isLoading = ref(false);
     async function handleSignUp() {
         const myPass = document.getElementById("myPass");
         const pass2 = document.getElementById("pass2");
         if(myPass.value == pass2.value){
+            isLoading.value = true;
             const formData = new FormData();
             formData.append("email", email.value)
             formData.append("password", password.value)
@@ -84,7 +89,9 @@
     } catch (err) {
     console.error('❌ Fetch/network error:', err);
     alert('Something went wrong!');
-    }
+    }finally {
+    isLoading.value = false;
+  }
      }else{
             document.getElementById("lamb").innerHTML = "❌Passwords do not match!"
         }
