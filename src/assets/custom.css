@@ -1,0 +1,10 @@
+@media(max-width: 720px) {
+    .textdiv{
+        transform: translate(-40%, -40%);
+    }
+}
+@media(min-width: 800px) and (max-width: 1024px) {
+    .textdiv{
+        transform: translate(-10%, -200%);
+    }
+}
