@@ -30,13 +30,10 @@ import { Coins, CircleUserRound, AlignRight, X, ArrowBigLeftDash, Trash } from '
     }
     async function handleLogout() {
   try {
-    const res = await fetch('http://localhost/Bitbet/backend/auth/logout.php');
+    const res = await fetch("https://bitbet-backend.onrender.com/auth/logout.php");
     const data = await res.json();
 
     if (data.success) {
-      // Optional: clear localStorage/sessionStorage
-      // localStorage.removeItem('user'); 
-
       router.push('/login'); // or wherever your login route is
     } else {
       alert('Failed to logout.');
