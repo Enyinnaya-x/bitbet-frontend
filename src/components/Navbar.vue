@@ -75,7 +75,7 @@ import { Coins, CircleUserRound, AlignRight, X, ArrowBigLeftDash, Trash } from '
             <span class="ms-2 font-bold text-xl" id="bitLogo">Bitbet</span>
         </div>
         <AlignRight @click="openMenu()" class="cursor-pointer" id="hamBtn"/>
-        <div class="newholder flex flex-col absolute z-50 top-0 bg-bitGold rounded-lg p-5 items-center gap-3 w-11/12 -right-full mt-3 h-2/4" id="hamMenu">
+        <div class="newholder flex flex-col fixed z-50 top-0 bg-bitGold rounded-lg p-5 items-center gap-3 w-11/12 -right-full mt-3 h-fitcontent" id="hamMenu">
             <div class="navlinks w-full flex flex-col gap-3 h-full">
                 <div class="xbutton flex justify-between">
                     <div class="logodiv flex">
