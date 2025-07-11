@@ -1,5 +1,7 @@
 <script setup>
 import { Coins, CircleUserRound, AlignRight, X, ArrowBigLeftDash, Trash } from 'lucide-vue-next';
+    import { useRouter } from 'vue-router'
+    const router = useRouter();
     var balance = 5000
     if(balance < 1){
         setInterval(()=>{
