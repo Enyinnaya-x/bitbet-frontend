@@ -30,7 +30,9 @@ import { Coins, CircleUserRound, AlignRight, X, ArrowBigLeftDash, Trash } from '
     }
     async function handleLogout() {
   try {
-    const res = await fetch("https://bitbet-backend.onrender.com/auth/logout.php");
+    const res = await fetch("https://bitbet-backend.onrender.com/auth/logout.php",{
+        method: "POST",
+    });
     const data = await res.json();
 
     if (data.success) {

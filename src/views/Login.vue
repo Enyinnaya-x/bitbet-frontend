@@ -14,16 +14,19 @@
                 </div>
                 <div class="details flex flex-col mb-4">
                     <label for="" class="font-semibold px-4">Password</label>
-                    <input type="password" class="px-2 border-y-gray border-y-2 border-x-2 border-x-gray rounded-full  focus:border-x-bitGold focus:border-y-bitGold focus:outline-none outline-none h-12" placeholder="Enter a password" v-model="password">
+                    <input type="password" class="px-2 border-y-gray border-y-2 border-x-2 border-x-gray rounded-full  focus:border-x-bitGold focus:border-y-bitGold focus:outline-none outline-none h-12" placeholder="Enter a password" v-model="password" id="myPass">
                 </div>
                 <div class="btndiv w-full">
                     <button type="submit" class="bg-bitGold font-bold rounded-full px-3 py-2 w-full">
                      <span v-if="isLoading">Logging in...</span>  
-                     <span v-else>Login!.</span>  
+                     <span v-else>Login!</span>  
                     </button>
                     <div class="forgot mt-1">
                         <router-link to="/forgot">Forgot Password?</router-link>
-                    </div>
+                </div>
+                <div class="checkboxdiv text-start flex items-center my-3 px-4">
+                   <span class="font-semibold">Show Password</span> <input type="checkbox" class="ms-2 w-4 h-4" @click="showPass()">
+                </div>
                     <div class="linkdiv mt-2 flex justify-center">
                         <router-link to="/" class="font-semibold underline">Don't have an account? Sign up!</router-link>
                     </div>
@@ -81,4 +84,12 @@
     isLoading.value = false;
   }
      }
+     function showPass(){
+            const myPass = document.getElementById("myPass");
+            if(myPass.type == "password"){
+                 myPass.type = "text"
+            }else{
+                myPass.type = "password"
+            }
+        }
     </script>
