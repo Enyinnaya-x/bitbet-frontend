@@ -24,7 +24,7 @@
                     <div class="forgot mt-1">
                         <router-link to="/forgot">Forgot Password?</router-link>
                 </div>
-                <div class="checkboxdiv text-start flex items-center my-3 px-4">
+                <div class="checkboxdiv text-start flex items-center my-3">
                    <span class="font-semibold">Show Password</span> <input type="checkbox" class="ms-2 w-4 h-4" @click="showPass()">
                 </div>
                     <div class="linkdiv mt-2 flex justify-center">
