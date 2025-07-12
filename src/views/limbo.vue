@@ -1,7 +1,5 @@
 <script setup>
-import { Chart } from 'chart.js/auto';
 import { Coins, CircleUserRound, AlignRight, X, ArrowBigLeftDash, Trash } from 'lucide-vue-next';
-import Resulttoast from '../components/Resulttoast.vue';
 import {ref} from "vue";
 import correct from "../assets/audio/correct.wav";
 import newwrong from "../assets/audio/newwrong.wav";
