@@ -3,6 +3,8 @@ import { Coins, CircleUserRound, AlignRight, X, ArrowBigLeftDash, Trash } from '
 import {ref} from "vue";
 import correct from "../assets/audio/correct.wav";
 import newwrong from "../assets/audio/newwrong.wav";
+    import { useRouter } from 'vue-router'
+    const router = useRouter();
 var randomNum;
 const myGuess = ref('');
 const correctSound = new Audio(correct);
@@ -52,6 +54,23 @@ const openMenu=()=>{
         bitLogo.classList.remove("invisible")
         coinlogo.classList.remove("invisible")
     }
+      async function handleLogout() {
+  try {
+    const res = await fetch("https://bitbet-backend.onrender.com/auth/logout.php",{
+        method: "POST",
+    });
+    const data = await res.json();
+
+    if (data.success) {
+      router.push('/login'); // or wherever your login route is
+    } else {
+      alert('Failed to logout.');
+    }
+  } catch (err) {
+    console.error('Logout error:', err);
+    alert('Something went wrong during logout.');
+  }
+}
 </script>
 
 <template>
