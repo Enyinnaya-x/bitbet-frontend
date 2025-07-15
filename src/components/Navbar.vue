@@ -67,8 +67,8 @@ import { Coins, CircleUserRound, AlignRight, X, ArrowBigLeftDash, Trash } from '
             <span class="ms-2 font-bold text-xl">Bitbet</span>
         </div>
         <div class="navlinks flex gap-24">
+            <router-link to="/home" class="font-ligth text-white hover:text-bitGold cursor-pointer">Home</router-link>
             <p class="font-ligth text-white hover:text-bitGold cursor-pointer">Help</p>
-            <p class="font-ligth text-white hover:text-bitGold cursor-pointer">Leaderboard</p>
         </div>
         <div class="importantdiv flex justify-between">
             <div class="userdiv rounded-md flex bg-white items-center justify-between px-2 py-1">
@@ -96,8 +96,8 @@ import { Coins, CircleUserRound, AlignRight, X, ArrowBigLeftDash, Trash } from '
                     </div>
                     <X class="text-bitPurple stroke-[2.5]  hover:text-bitRed cursor-pointer" @click="removeMenu"/>
                 </div>
+                <router-link class="font-ligth text-bitPurple font-semibold hover:text-bitRed cursor-pointer">Home</router-link>
                 <p class="font-ligth text-bitPurple font-semibold hover:text-bitRed cursor-pointer">Help</p>
-                <p class="font-ligth text-bitPurple font-semibold hover:text-bitRed cursor-pointer">Leaderboard</p>
                 <p class="font-ligth text-bitPurple font-semibold hover:text-bitRed cursor-pointer">Join Our Community</p>
             </div>
             <div class="userdiv rounded-md flex bg-white items-center justify-between px-2 py-1 me-auto">
