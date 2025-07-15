@@ -5,7 +5,9 @@ import correct from "../assets/audio/correct.wav";
 import newwrong from "../assets/audio/newwrong.wav";
     import { useRouter } from 'vue-router'
     const router = useRouter();
-       fetch("https://bitbet-backend.onrender.com/auth/getBal.php")
+   fetch("https://bitbet-backend.onrender.com/auth/getBal.php",{
+       credentials: "include",
+   })
   .then(res => res.json())
   .then(data => {
     if (data.success) {
