@@ -7,7 +7,7 @@
                     <small class="font-bold">We've missed you!😃✨</small>
                 </div>
             </div>
-            <form @submit.prevent="handleLogin" class="lg:w-2/4 w-11/12 mx-auto mt-4">
+            <form @submit.prevent="handleLogin" class="lg:w-2/4 w-11/12 mx-auto mt-4 relative">
                 <div class="details flex flex-col mb-4">
                     <label for="" class="font-semibold px-4">Email</label>
                     <input type="email" class="px-2 border-y-gray border-y-2 border-x-2 border-x-gray rounded-full focus:border-x-bitGold focus:border-y-bitGold focus:outline-none h-12" placeholder="Enter your email" v-model="email">
@@ -21,12 +21,12 @@
                      <span v-if="isLoading">Logging in...</span>  
                      <span v-else>Login!</span>  
                     </button>
-                    <div class="forgot mt-1">
+                    <div class="forgot mt-1 text-end">
                         <router-link to="/forgot">Forgot Password?</router-link>
                 </div>
-                <div class="checkboxdiv text-start flex items-center my-3">
-                   <span class="font-semibold">Show Password</span> <input type="checkbox" class="ms-2 w-4 h-4" @click="showPass()">
-                </div>
+                 <button @click="showPass()" type="button" class="togglepass2">
+                    <component :is="isOpen ? Eye : EyeOff"/>
+                    </button>
                     <div class="linkdiv mt-2 flex justify-center">
                         <router-link to="/" class="font-semibold underline">Don't have an account? Sign up!</router-link>
                     </div>
@@ -36,6 +36,7 @@
     </div>
 </template>
     <script setup>
+    import { Eye, EyeOff } from 'lucide-vue-next';
     import {ref} from "vue";
     import { useRouter } from 'vue-router'
     const router = useRouter();
@@ -80,8 +81,9 @@
     isLoading.value = false;
   }
 }
-
+    var isOpen =  ref(true)
      function showPass(){
+        isOpen.value = !isOpen.value
             const myPass = document.getElementById("myPass");
             if(myPass.type == "password"){
                  myPass.type = "text"

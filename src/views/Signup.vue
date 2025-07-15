@@ -19,6 +19,9 @@
                 <div class="details flex flex-col mb-4">
                     <label for="" class="font-semibold px-4">Password</label>
                     <input type="password" class="px-2 border-y-gray border-y-2 border-x-2 border-x-gray rounded-full  focus:border-x-bitGold focus:border-y-bitGold focus:outline-none outline-none h-12" placeholder="Enter a password" v-model="password" name="password" id="myPass">
+                   <button @click="showPass()" type="button" class="togglepass">
+                    <component :is="isOpen ? Eye : EyeOff"/>
+                     </button>
                 </div>
                 <div class="details flex flex-col mb-4">
                     <label for="" class="font-semibold px-4">Confirm Password</label>
@@ -31,9 +34,6 @@
                       <span v-else>Sign Up!</span>
                     </button>
                 </div>
-                <div class="checkboxdiv text-start flex items-center my-3 px-4">
-                   <span class="font-semibold">Show Password</span> <input type="checkbox" class="ms-2 w-4 h-4" @click="showPass()">
-                </div>
                 <div class="linkdiv mt-4 flex items-center justify-center">
                     <router-link to="/login" class="font-semibold underline">Already have an account? Login</router-link>
                 </div>
@@ -43,6 +43,7 @@
 </template>
     <script setup>
     import {ref} from "vue";
+    import { Eye, EyeOff } from 'lucide-vue-next';
     import { useRouter } from 'vue-router'
     const router = useRouter();
     const username = ref('');
@@ -97,7 +98,9 @@
         }
 }
 
-        function showPass(){
+    var isOpen = ref(true);
+    function showPass(){
+             isOpen.value = !isOpen.value
             const myPass = document.getElementById("myPass");
             const pass2 = document.getElementById("pass2");
             if(myPass.type == "password"){

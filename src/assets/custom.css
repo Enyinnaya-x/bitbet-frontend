@@ -1,10 +1,86 @@
+.togglepass {
+    position: absolute;
+    top: 51%;
+    left: 58%;
+    transform: translate(32px, 44px);
+    cursor: pointer;
+}
+.togglepass2 {
+    position: absolute;
+    top: 30%;
+    left: 75%;
+    transform: translate(32px, 44px);
+    cursor: pointer;
+}
+/* @media (max-width : 430px){
+    .togglepass2 {
+        position: absolute;
+        top: 32.5%;
+        left: 67%;
+        transform: translate(28px, 77px);
+        cursor: pointer;
+    }
+} */
 @media(max-width: 720px) {
     .textdiv{
         transform: translate(-40%, -40%);
     }
+         .togglepass {
+             position: absolute;
+             top: 52%;
+             left: 67%;
+             transform: translate(28px, 43px);
+             cursor: pointer;
+         }
+                 .togglepass2 {
+                     position: absolute;
+                     top: 18%;
+                     left: 72%;
+                     transform: translate(28px, 77px);
+                     cursor: pointer;
+                 }
+}
+@media(min-width : 480px) and (max-width: 550px) {
+         .togglepass {
+             position: absolute;
+             top: 51%;
+             left: 67%;
+             transform: translate(28px, 43px);
+            cursor: pointer;
+         }
+         .togglepass2{
+            position: absolute;
+                top: 30%;
+                left: 75%;
+                transform: translate(28px, 43px);
+                cursor: pointer;
+         }
 }
 @media(min-width: 800px) and (max-width: 1024px) {
     .textdiv{
         transform: translate(-10%, -200%);
     }
+    .togglepass{
+        position: absolute;
+        top: 51%;
+       left: 75%;
+       transform: translate(48px, 38px);
+        cursor: pointer;
+    }
+        .togglepass2 {
+            position: absolute;
+            top: 31%;
+            left: 85%;
+            transform: translate(28px, 43px);
+            cursor: pointer;
+        }
+}
+@media (min-width : 1500px) and (max-width :1600px){
+    .togglepass2 {
+            position: absolute;
+            top: 31%;
+            left: 77%;
+            transform: translate(37px, 40px);
+            cursor: pointer;
+        }
 }
