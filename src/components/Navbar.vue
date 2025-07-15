@@ -2,7 +2,9 @@
 import { Coins, CircleUserRound, AlignRight, X, ArrowBigLeftDash, Trash } from 'lucide-vue-next';
     import { useRouter } from 'vue-router'
     const router = useRouter();
-   fetch("https://bitbet-backend.onrender.com/auth/getBal.php")
+   fetch("https://bitbet-backend.onrender.com/auth/getBal.php",{
+       credentials: "include",
+   })
   .then(res => res.json())
   .then(data => {
     if (data.success) {
