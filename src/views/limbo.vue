@@ -9,10 +9,10 @@ import newwrong from "../assets/audio/newwrong.wav";
   .then(res => res.json())
   .then(data => {
     if (data.success) {
-      const balance = data.data;
-      console.log("User balance:", balance);
-      document.getElementById('myBal').textContent = `₦${balance}`;
-      document.getElementById('myBal2').textContent = `₦${balance}`;
+      const bitbucks = data.data;
+      console.log("User bitbucks:", bitbucks);
+      document.getElementById('myBal').textContent = `₦${bitbucks}`;
+      document.getElementById('myBal2').textContent = `₦${bitbucks}`;
     } else {
       console.error("Error:", data.message);
     }
@@ -26,7 +26,7 @@ const amount = ref('');
 const correctSound = new Audio(correct);
 const newwrongSound = new Audio(newwrong);
  function placeBet(){
-  if(amount.value > balance){
+  if(amount.value > bitbucks){
     alert("Please Input a valid amount")
     return;
   }

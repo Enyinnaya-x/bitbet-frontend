@@ -8,10 +8,10 @@ import { Coins, CircleUserRound, AlignRight, X, ArrowBigLeftDash, Trash } from '
   .then(res => res.json())
   .then(data => {
     if (data.success) {
-      const balance = data.data;
-      console.log("User balance:", balance);
-      document.getElementById('myBal').textContent = `₦${balance}`;
-      document.getElementById('myBal2').textContent = `₦${balance}`;
+      const bitbucks = data.data;
+      console.log("User bitbucks:", bitbucks);
+      document.getElementById('myBal').textContent = `₦${bitbucks}`;
+      document.getElementById('myBal2').textContent = `₦${bitbucks}`;
     } else {
       console.error("Error:", data.message);
     }
