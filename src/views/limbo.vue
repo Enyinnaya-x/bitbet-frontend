@@ -263,7 +263,7 @@ const openMenu=()=>{
               <button class="bg-bitGold font-bold rounded-full px-3 py-2 w-36" @click="autoBet()">Auto</button>
               <button class="bg-white font-bold rounded-full px-3 py-2 w-36" @click="clear()">Clear</button>
           </div>
-          <div class="livefeed mt-5 px-4 mx-auto w-11/12">
+          <!-- <div class="livefeed mt-5 px-4 mx-auto w-11/12">
         <h4 class="font-semibold text-2xl text-white">Live Feed</h4>
          <div class="overflow-x-auto rounded-lg shadow-md border border-gray-200">
   <table class="min-w-full divide-y divide-gray-200 bg-white sm:text-sm">
@@ -288,11 +288,10 @@ const openMenu=()=>{
         <td class="px-6 py-4">1.1x</td>
         <td class="px-6 py-4 text-red-500 font-semibold">$0</td>
       </tr>
-      <!-- more rows -->
     </tbody>
   </table>
 </div>
-    </div>
+    </div> -->
     </div>
 </div>
 
