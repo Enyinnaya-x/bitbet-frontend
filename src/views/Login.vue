@@ -42,48 +42,45 @@
     const email = ref('');
     const password = ref('');
     const isLoading = ref(false);
-    async function handleLogin() {
-    if (!email.value || !password.value) {
+   async function handleLogin() {
+  if (!email.value || !password.value) {
     alert("Please fill in both email and password.");
     return;
-        }
-        isLoading.value = true;
-         const formData = new FormData();
-            formData.append("email", email.value)
-            formData.append("password", password.value)
-         try {
-            const res = await fetch("https://bitbet-backend.onrender.com/auth/login.php", {
-        method: "POST",
-        body: formData
-         });
+  }
 
-         const text = await res.text(); // Grab raw response
-        console.log("Raw response text:", text);
+  isLoading.value = true;
 
-        let data;
-         try {
-        data = JSON.parse(text);
-         } catch (parseErr) {
-        console.error("❌ Failed to parse JSON:", parseErr);
-        alert("Server response was not valid JSON");
-        return;
-        }
+  try {
+    const res = await fetch("https://bitbet-backend.onrender.com/auth/login.php", {
+      method: "POST",
+      credentials: "include", // ✅ needed for session cookie
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        email: email.value,
+        password: password.value
+      })
+    });
 
-     console.log("Parsed response:", data);
+    const data = await res.json(); // ✅ no need to manually parse text
 
-     if (data.success) {
-        router.push('/home');
-        } else {
-        alert(data.message || 'Login failed.');
-        }
+    console.log("Parsed response:", data);
 
-    } catch (err) {
+    if (data.success) {
+      router.push('/home');
+    } else {
+      alert(data.message || 'Login failed.');
+    }
+
+  } catch (err) {
     console.error('❌ Fetch/network error:', err);
     alert('Something went wrong!');
-    }finally {
+  } finally {
     isLoading.value = false;
   }
-     }
+}
+
      function showPass(){
             const myPass = document.getElementById("myPass");
             if(myPass.type == "password"){
