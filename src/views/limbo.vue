@@ -72,6 +72,8 @@ const newwrongSound = new Audio(newwrong);
         newwrongSound.play();
         myH.style.color = "red";
       }
+      document.getElementById('myBal').textContent = `₦${bitbucks.value}`;
+      document.getElementById('myBal2').textContent = `₦${bitbucks.value}`;
     } else {
       alert(data.message || "Something went wrong with your bet");
     }
