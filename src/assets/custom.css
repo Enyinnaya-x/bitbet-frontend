@@ -1,7 +1,7 @@
 .togglepass {
     position: absolute;
-    top: 51%;
-    left: 58%;
+    top: 39%;
+    left: 78%;
     transform: translate(32px, 44px);
     cursor: pointer;
 }
@@ -27,8 +27,8 @@
     }
          .togglepass {
              position: absolute;
-             top: 52%;
-             left: 67%;
+             top: 39%;
+             left: 73%;
              transform: translate(28px, 43px);
              cursor: pointer;
          }
@@ -43,8 +43,8 @@
 @media(min-width : 480px) and (max-width: 550px) {
          .togglepass {
              position: absolute;
-             top: 51%;
-             left: 67%;
+             top: 39%;
+             left: 77%;
              transform: translate(28px, 43px);
             cursor: pointer;
          }
@@ -62,8 +62,8 @@
     }
     .togglepass{
         position: absolute;
-        top: 51%;
-       left: 75%;
+        top: 40%;
+       left: 82%;
        transform: translate(48px, 38px);
         cursor: pointer;
     }

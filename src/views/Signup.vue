@@ -7,7 +7,7 @@
                     <small class="font-bold">Welcome to the Bitbet World, sign up to get started!🎉</small>
                 </div>
             </div>
-            <form @submit.prevent="handleSignUp()" class="lg:w-2/4 w-11/12 mx-auto mt-4">
+            <form @submit.prevent="handleSignUp()" class="lg:w-2/4 w-11/12 mx-auto mt-4 relative">
                 <div class="details flex flex-col mb-4">
                     <label for="" class="font-semibold px-4">Username</label>
                     <input type="text" class="px-2 border-y-gray border-y-2 border-x-2 border-x-gray rounded-full focus:border-x-bitGold focus:border-y-bitGold focus:outline-none h-12" placeholder="Enter a username" v-model="username" name="username">
