@@ -2,12 +2,21 @@
 import { Coins, CircleUserRound, AlignRight, X, ArrowBigLeftDash, Trash } from 'lucide-vue-next';
     import { useRouter } from 'vue-router'
     const router = useRouter();
-    var balance = 5000
-    if(balance < 1){
-        setInterval(()=>{
-            balance++
-        }, 30000)
+   fetch("https://bitbet-backend.onrender.com/auth/getBal.php")
+  .then(res => res.json())
+  .then(data => {
+    if (data.success) {
+      const balance = data.data;
+      console.log("User balance:", balance);
+      document.getElementById('myBal').textContent = `₦${balance}`;
+      document.getElementById('myBal2').textContent = `₦${balance}`;
+    } else {
+      console.error("Error:", data.message);
     }
+  })
+  .catch(err => {
+    console.error("Fetch error:", err);
+  });
     const openMenu=()=>{
         const hamMenu = document.getElementById("hamMenu");
         const hamBtn = document.getElementById("hamBtn");
@@ -62,7 +71,7 @@ import { Coins, CircleUserRound, AlignRight, X, ArrowBigLeftDash, Trash } from '
         <div class="importantdiv flex justify-between">
             <div class="userdiv rounded-md flex bg-white items-center justify-between px-2 py-1">
                 <CircleUserRound class="text-bitPurple stroke-[2.5] "/>
-                <p class="font-semibold ms-2 text-bitPurple hover:text-bitGold cursor-pointer">{{balance}}</p>
+                <p class="font-semibold ms-2 text-bitPurple hover:text-bitGold cursor-pointer" id="myBal"></p>
             </div>
             <div class="userdiv rounded-md flex bg-white items-center justify-between px-2 py-1 ms-4">
                     <ArrowBigLeftDash class="text-bitPurple"/> <button @click="handleLogout" class="font-ligth text-bitPurple font-semibold hover:text-bitRed cursor-pointer">Logout</button>
@@ -94,7 +103,7 @@ import { Coins, CircleUserRound, AlignRight, X, ArrowBigLeftDash, Trash } from '
             </div>
             <div class="userdiv rounded-md flex bg-white items-center justify-between px-2 py-1 me-auto">
             <CircleUserRound class="text-bitPurple stroke-[2.5] "/>
-            <p class="font-semibold ms-2 text-bitPurple hover:text-bitGold cursor-pointer">{{balance}}</p>
+            <p class="font-semibold ms-2 text-bitPurple hover:text-bitGold cursor-pointer" id="myBal2"></p>
             </div>
             <div class="userdiv rounded-md flex bg-white items-center justify-between px-2 py-1 me-auto">
             <Trash class="text-bitPurple stroke-[2.5] "/>

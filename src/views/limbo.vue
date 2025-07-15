@@ -5,12 +5,32 @@ import correct from "../assets/audio/correct.wav";
 import newwrong from "../assets/audio/newwrong.wav";
     import { useRouter } from 'vue-router'
     const router = useRouter();
+       fetch("https://bitbet-backend.onrender.com/auth/getBal.php")
+  .then(res => res.json())
+  .then(data => {
+    if (data.success) {
+      const balance = data.data;
+      console.log("User balance:", balance);
+      document.getElementById('myBal').textContent = `₦${balance}`;
+      document.getElementById('myBal2').textContent = `₦${balance}`;
+    } else {
+      console.error("Error:", data.message);
+    }
+  })
+  .catch(err => {
+    console.error("Fetch error:", err);
+  });
 var randomNum;
 const myGuess = ref('');
+const amount = ref('');
 const correctSound = new Audio(correct);
 const newwrongSound = new Audio(newwrong);
  function placeBet(){
-    if(myGuess.value == "" || myGuess.value > 10 ){
+  if(amount.value > balance){
+    alert("Please Input a valid amount")
+    return;
+  }
+  if(myGuess.value == "" || myGuess.value > 10 ){
         alert ("Please fill in a valid guess")
         return;
     }
@@ -28,6 +48,30 @@ const newwrongSound = new Audio(newwrong);
         myH.style.color = "red"
 
      }
+ }
+ function autoBet(){
+    var userRandom = Math.ceil(Math.random() * 10)
+     randomNum = Math.ceil(Math.random() * 10);
+     myGuess.value = userRandom
+     const myRange = document.getElementById("myRange");
+     const myH = document.getElementById("myH");
+     myH.innerHTML = `${randomNum}<small id="mySmall">x</small>`;
+     myRange.value = randomNum;
+     if(userRandom == randomNum){
+         correctSound.play()
+        myH.style.color = "green"
+     }else{
+         newwrongSound.play()
+        myH.style.color = "red"
+     }
+
+ }
+  function clear(){
+     myGuess.value = "";
+     const myH = document.getElementById("myH");
+     myH.style.color = "white"
+     myH.innerHTML = `0<small id="mySmall">x</small>`;
+
  }
  function displayRules(){
     alert("Can you guess where the range thumb will land?🤔 It's suppose to be between the numbers 1-10. I don't know it but maybe you do👀✨")
@@ -87,7 +131,7 @@ const openMenu=()=>{
           <div class="importantdiv flex justify-between">
               <div class="userdiv rounded-md flex bg-white items-center justify-between px-2 py-1">
                   <CircleUserRound class="text-bitPurple stroke-[2.5] "/>
-                  <p class="font-semibold ms-2 text-bitPurple hover:text-bitGold cursor-pointer">{{balance}}</p>
+                  <p class="font-semibold ms-2 text-bitPurple hover:text-bitGold cursor-pointer" id="myBal"></p>
               </div>
               <div class="userdiv rounded-md flex bg-white items-center justify-between px-2 py-1 ms-4">
                       <ArrowBigLeftDash class="text-bitPurple"/> <button @click="handleLogout" class="font-ligth text-bitPurple font-semibold hover:text-bitRed cursor-pointer">Logout</button>
@@ -120,7 +164,7 @@ const openMenu=()=>{
               </div>
               <div class="userdiv rounded-md flex bg-white items-center justify-between px-2 py-1 me-auto">
               <CircleUserRound class="text-bitPurple stroke-[2.5] "/>
-              <p class="font-semibold ms-2 text-bitPurple hover:text-bitGold cursor-pointer">{{balance}}</p>
+              <p class="font-semibold ms-2 text-bitPurple hover:text-bitGold cursor-pointer" id="myBal2"></p>
               </div>
               <div class="userdiv rounded-md flex bg-white items-center justify-between px-2 py-1 me-auto">
               <Trash class="text-bitPurple stroke-[2.5] "/>
@@ -139,7 +183,7 @@ const openMenu=()=>{
       <div class="amount flex flex-col lg:w-5/6 w-full mt-10">
           <div class="firstdiv flex flex-col px-4 lg:w-3/4 w-11/12 mb-3">
               <label for="" class="text-white font-semibold px-4">Bet Amount</label>
-              <input type="number" class="px-2 border-y-gray border-y-2 border-x-2 border-x-gray rounded-full  focus:border-x-bitGold focus:border-y-bitGold focus:outline-none outline-none h-12">
+              <input type="number" class="px-2 border-y-gray border-y-2 border-x-2 border-x-gray rounded-full  focus:border-x-bitGold focus:border-y-bitGold focus:outline-none outline-none h-12" v-model="amount">
           </div>
           <div class="firstdiv flex flex-col px-4 lg:w-3/4 w-11/12 mb-3">
               <label for="" class="text-white font-semibold px-4">Guess</label>
@@ -147,8 +191,8 @@ const openMenu=()=>{
           </div>
           <div class="btndiv flex justify-between items-center mt-5 lg:w-3/4 w-full gap-3 px-6">
               <button class="bg-bitRed font-bold rounded-full px-3 py-2 w-36 text-white" @click="placeBet">Place Bet</button>
-              <button class="bg-bitGold font-bold rounded-full px-3 py-2 w-36">Auto</button>
-              <button class="bg-white font-bold rounded-full px-3 py-2 w-36">Clear</button>
+              <button class="bg-bitGold font-bold rounded-full px-3 py-2 w-36" @click="autoBet()">Auto</button>
+              <button class="bg-white font-bold rounded-full px-3 py-2 w-36" @click="clear()">Clear</button>
           </div>
           <div class="livefeed mt-5 px-4 mx-auto w-11/12">
         <h4 class="font-semibold text-2xl text-white">Live Feed</h4>
