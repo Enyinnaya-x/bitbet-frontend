@@ -5,16 +5,17 @@ import correct from "../assets/audio/correct.wav";
 import newwrong from "../assets/audio/newwrong.wav";
     import { useRouter } from 'vue-router'
     const router = useRouter();
+    const bitbucks = ref(0)
    fetch("https://bitbet-backend.onrender.com/auth/getBal.php",{
        credentials: "include",
    })
   .then(res => res.json())
   .then(data => {
     if (data.success) {
-      const bitbucks = data.data;
+      bitbucks.value = parseFloat(data.data);
       console.log("User bitbucks:", bitbucks);
-      document.getElementById('myBal').textContent = `₦${bitbucks}`;
-      document.getElementById('myBal2').textContent = `₦${bitbucks}`;
+      document.getElementById('myBal').textContent = `₦${bitbucks.value}`;
+      document.getElementById('myBal2').textContent = `₦${bitbucks.value}`;
     } else {
       console.error("Error:", data.message);
     }
@@ -27,47 +28,108 @@ const myGuess = ref('');
 const amount = ref('');
 const correctSound = new Audio(correct);
 const newwrongSound = new Audio(newwrong);
- function placeBet(){
-  if(amount.value > bitbucks){
-    alert("Please Input a valid amount")
+ async function placeBet() {
+  if (!amount.value || amount.value <= 0 || amount.value > bitbucks.value) {
+    alert("❌ Please input a valid bet amount");
     return;
   }
-  if(myGuess.value == "" || myGuess.value > 10 ){
-        alert ("Please fill in a valid guess")
-        return;
-    }
-     randomNum = Math.ceil(Math.random() * 10);
-     console.log(randomNum)
-     const myRange = document.getElementById("myRange");
-     const myH = document.getElementById("myH");
-     myH.innerHTML = `${randomNum}<small id="mySmall">x</small>`;
-     myRange.value = randomNum;
-     if(randomNum == myGuess.value){
-         correctSound.play()
-        myH.style.color = "green"
-     }else{
-         newwrongSound.play()
-        myH.style.color = "red"
 
-     }
- }
- function autoBet(){
+  if (!myGuess.value || myGuess.value < 1 || myGuess.value > 10) {
+    alert("❌ Please input a valid guess between 1 and 10");
+    return;
+  }
+
+  // 👇 Call the backend to process the bet and get result
+  try {
+    const res = await fetch("https://bitbet-backend.onrender.com/auth/limbo1.php", {
+      method: "POST",
+      credentials: "include",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        amount: Number(amount.value),
+        guess: Number(myGuess.value)
+      }),
+    });
+
+    const data = await res.json();
+    console.log("Bet response:", data);
+
+    if (data.success) {
+      // 💰 Update balance
+      bitbucks.value = data.new_balance;
+
+      // 🎰 Update UI
+      const myRange = document.getElementById("myRange");
+      const myH = document.getElementById("myH");
+
+      myH.innerHTML = `${data.random}<small id="mySmall">x</small>`;
+      myRange.value = data.random;
+
+      if (data.win) {
+        correctSound.play();
+        myH.style.color = "green";
+      } else {
+        newwrongSound.play();
+        myH.style.color = "red";
+      }
+    } else {
+      alert(data.message || "Something went wrong with your bet");
+    }
+  } catch (err) {
+    console.error("❌ Bet fetch error:", err);
+    alert("Network error while placing bet");
+  }
+}
+
+ async function autoBet(){
     var userRandom = Math.ceil(Math.random() * 10)
      randomNum = Math.ceil(Math.random() * 10);
-     myGuess.value = userRandom
-     const myRange = document.getElementById("myRange");
-     const myH = document.getElementById("myH");
-     myH.innerHTML = `${randomNum}<small id="mySmall">x</small>`;
-     myRange.value = randomNum;
-     if(userRandom == randomNum){
-         correctSound.play()
-        myH.style.color = "green"
-     }else{
-         newwrongSound.play()
-        myH.style.color = "red"
-     }
+    if (!amount.value || amount.value <= 0 || amount.value > bitbucks.value) {
+    alert("❌ Please input a valid bet amount");
+    return;
+  }
 
- }
+  // 👇 Call the backend to process the bet and get result
+  try {
+    const res = await fetch("https://bitbet-backend.onrender.com/auth/limbo2.php", {
+      method: "POST",
+      credentials: "include",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        amount: Number(amount.value),
+        guess: Number(myGuess.value)
+      }),
+    });
+
+    const data = await res.json();
+    console.log("Bet response:", data);
+
+    if (data.success) {
+      // 💰 Update balance
+      bitbucks.value = data.new_balance;
+
+      // 🎰 Update UI
+      const myRange = document.getElementById("myRange");
+      const myH = document.getElementById("myH");
+
+      myH.innerHTML = `${data.random}<small id="mySmall">x</small>`;
+      myRange.value = data.random;
+
+      if (data.win) {
+        correctSound.play();
+        myH.style.color = "green";
+      } else {
+        newwrongSound.play();
+        myH.style.color = "red";
+      }
+    } else {
+      alert(data.message || "Something went wrong with your bet");
+    }
+  } catch (err) {
+    console.error("❌ Bet fetch error:", err);
+    alert("Network error while placing bet");
+  }
+}
   function clear(){
      myGuess.value = "";
      const myH = document.getElementById("myH");
@@ -185,7 +247,7 @@ const openMenu=()=>{
       <div class="amount flex flex-col lg:w-5/6 w-full mt-10">
           <div class="firstdiv flex flex-col px-4 lg:w-3/4 w-11/12 mb-3">
               <label for="" class="text-white font-semibold px-4">Bet Amount</label>
-              <input type="number" class="px-2 border-y-gray border-y-2 border-x-2 border-x-gray rounded-full  focus:border-x-bitGold focus:border-y-bitGold focus:outline-none outline-none h-12" v-model="amount">
+              <input type="number" name="amount" class="px-2 border-y-gray border-y-2 border-x-2 border-x-gray rounded-full  focus:border-x-bitGold focus:border-y-bitGold focus:outline-none outline-none h-12" v-model="amount">
           </div>
           <div class="firstdiv flex flex-col px-4 lg:w-3/4 w-11/12 mb-3">
               <label for="" class="text-white font-semibold px-4">Guess</label>
