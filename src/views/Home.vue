@@ -23,4 +23,4 @@ import Heroimg2 from '../assets/images/herosectionimage2.png'
     </div>
     <Footer/>
   </div>
-</template>
+  </template>

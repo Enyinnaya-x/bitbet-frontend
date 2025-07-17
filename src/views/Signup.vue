@@ -51,6 +51,7 @@
     const password = ref('');
     const conPass = ref('');
     const isLoading = ref(false);
+    import emailjs from "@emailjs/browser";
     async function handleSignUp() {
         const myPass = document.getElementById("myPass");
         const pass2 = document.getElementById("pass2");
@@ -83,6 +84,21 @@
 
      if (data.success) {
         router.push('/home');
+        function sendWelcomeEmail(email, username) {
+  emailjs.send(
+    "service_gmi98kp",
+    "template_qi9gymo",
+    {
+      user_email: email,
+      user_name: username,
+    },
+    "jsmGrDo0tdNxBo0Tb"
+  ).then(() => {
+    console.log("Email sent!");
+  }).catch((err) => {
+    console.error("Email failed:", err);
+  });
+}
         } else {
         alert(data.message || 'Registration failed.');
         }
