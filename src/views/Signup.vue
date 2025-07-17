@@ -84,6 +84,7 @@
 
      if (data.success) {
         router.push('/home');
+        sendWelcomeEmail();
         function sendWelcomeEmail(email, username) {
   emailjs.send(
     "service_gmi98kp",
